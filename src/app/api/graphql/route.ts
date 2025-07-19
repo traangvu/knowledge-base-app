@@ -1,17 +1,25 @@
-import { createYoga, createSchema } from "graphql-yoga"
-import { NextRequest } from "next/server"
-import { resolvers } from "@/app/api/graphql/resolvers"
-import { typeDefs } from "@/app/api/graphql/typeDefs"
+// src/app/api/graphql/route.ts
+import { createYoga } from 'graphql-yoga'
+import { createSchema } from 'graphql-yoga'
+import { NextRequest } from 'next/server'
 
-const yoga = createYoga<{
+    const yoga = createYoga<{
     req: NextRequest
     }>({
+    graphqlEndpoint: '/api/graphql',
     schema: createSchema({
-        typeDefs,
-        resolvers,
+        typeDefs: /* GraphQL */ `
+        type Query {
+            hello: String
+        }
+        `,
+        resolvers: {
+        Query: {
+            hello: () => 'Hello world!',
+        },
+        },
     }),
-    graphqlEndpoint: "/api/graphql",
-    fetchAPI: { Response },
+    fetchAPI: { Request, Response },
 })
 
 export { yoga as GET, yoga as POST }
