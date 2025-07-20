@@ -1,12 +1,9 @@
 // src/app/api/graphql/route.ts
-import { createYoga } from 'graphql-yoga'
-import { createSchema } from 'graphql-yoga'
-import { NextRequest } from 'next/server'
+import { createYoga, createSchema } from 'graphql-yoga'
+import type { NextRequest } from 'next/server'
 
-    const yoga = createYoga<{
-    req: NextRequest
-    }>({
-    graphqlEndpoint: '/api/graphql',
+// 1. Define the schema
+const yoga = createYoga({
     schema: createSchema({
         typeDefs: /* GraphQL */ `
         type Query {
@@ -15,11 +12,19 @@ import { NextRequest } from 'next/server'
         `,
         resolvers: {
         Query: {
-            hello: () => 'Hello world!',
+            hello: () => 'Hello from Yoga + Next.js!',
         },
         },
     }),
+    graphqlEndpoint: '/api/graphql',
     fetchAPI: { Request, Response },
 })
 
-export { yoga as GET, yoga as POST }
+// 2. Next.js App Router expects (request: NextRequest)
+export async function GET(request: NextRequest) {
+    return yoga.handleRequest(request, {})
+}
+
+export async function POST(request: NextRequest) {
+    return yoga.handleRequest(request, {})
+}
