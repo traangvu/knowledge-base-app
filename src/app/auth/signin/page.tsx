@@ -1,12 +1,11 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import { signIn, useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
 export default function SignInPage() {
     const { status } = useSession();
     const router = useRouter();
