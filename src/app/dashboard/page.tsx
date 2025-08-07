@@ -10,49 +10,100 @@ import Link from "next/link";
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
 
+    console.log("Session:", session);
+
     if (!session) {
-        redirect("/login");
+        redirect("/auth/signin");
     }
+    console.log("Session at /dashboard:", session);
 
     const user = session.user;
 
     return (
         <main className="p-6 max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Welcome back, {user?.name?.split(" ")[0]} 👋</h1>
+        <h1 className="text-3xl font-bold mb-2">
+            Welcome back, {user?.name?.split(" ")[0]} 👋
+        </h1>
+        <p className="text-muted-foreground mb-8 text-sm">
+            Your thoughts are safe here. Capture new ideas, revisit old ones, and
+            explore how they connect.
+        </p>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
             <CardHeader>
-                <CardTitle>Your Notes</CardTitle>
+                <CardTitle>Explore Notes</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-muted-foreground">View and manage all your markdown notes.</p>
+                <p className="text-muted-foreground">
+                Dive into your existing notes and refine your thinking.
+                </p>
                 <Link href="/notes">
-                <Button className="mt-4 w-full">Open Notes</Button>
+                <Button className="mt-4 w-full">View Notes</Button>
                 </Link>
             </CardContent>
             </Card>
 
             <Card>
             <CardHeader>
-                <CardTitle>Folders</CardTitle>
+                <CardTitle>Create a New Thought</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-muted-foreground">Organize notes into folders for better structure.</p>
-                <Link href="/folders">
-                <Button variant="outline" className="mt-4 w-full">Manage Folders</Button>
-                </Link>
-            </CardContent>
-            </Card>
-
-            <Card>
-            <CardHeader>
-                <CardTitle>New Note</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-muted-foreground">Jump right in and start writing something new.</p>
+                <p className="text-muted-foreground">
+                Capture a fleeting idea before it fades.
+                </p>
                 <Link href="/notes/new">
-                <Button variant="secondary" className="mt-4 w-full">Create Note</Button>
+                <Button variant="secondary" className="mt-4 w-full">
+                    New Note
+                </Button>
+                </Link>
+            </CardContent>
+            </Card>
+
+            <Card>
+            <CardHeader>
+                <CardTitle>Organize Knowledge</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground">
+                Use folders and tags to bring structure to your thoughts.
+                </p>
+                <Link href="/folders">
+                <Button variant="outline" className="mt-4 w-full">
+                    Manage Folders
+                </Button>
+                </Link>
+            </CardContent>
+            </Card>
+
+            <Card>
+            <CardHeader>
+                <CardTitle>Visualize Connections</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground">
+                Explore the graph view to see how your ideas relate.
+                </p>
+                <Link href="/graph">
+                <Button variant="ghost" className="mt-4 w-full">
+                    Open Graph
+                </Button>
+                </Link>
+            </CardContent>
+            </Card>
+
+            <Card>
+            <CardHeader>
+                <CardTitle>AI Insights</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground">
+                Let AI suggest tags, summaries, or related thoughts.
+                </p>
+                <Link href="/ai-tools">
+                <Button variant="default" className="mt-4 w-full">
+                    Use AI Tools
+                </Button>
                 </Link>
             </CardContent>
             </Card>
