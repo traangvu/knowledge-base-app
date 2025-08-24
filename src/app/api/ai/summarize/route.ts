@@ -2,17 +2,43 @@ import { NextResponse } from "next/server";
 import { openai } from "@/lib/openai";
 
 export async function POST(req: Request) {
-    const { text } = await req.json();
+    try {
+        // ✅ Safely parse incoming JSON
+        const { text } = await req.json();
 
-    const response = await openai.chat.completions.create({
+        if (!text || typeof text !== "string") {
+        return NextResponse.json(
+            { error: "Invalid input. Expected a text string." },
+            { status: 400 }
+        );
+        }
+
+        // ✅ Call OpenAI API
+        const response = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-        { role: "system", content: "Summarize the following note:" },
-        { role: "user", content: text },
+            { role: "system", content: "Summarize the following note:" },
+            { role: "user", content: text },
         ],
-    });
+        });
 
-    return NextResponse.json({
-        summary: response.choices[0].message?.content ?? "",
-    });
+        // ✅ Extract summary safely
+        const summary = response.choices?.[0]?.message?.content?.trim();
+
+        if (!summary) {
+        return NextResponse.json(
+            { error: "No summary generated." },
+            { status: 500 }
+        );
+        }
+
+        // ✅ Return proper JSON response
+        return NextResponse.json({ summary });
+    } catch (err) {
+        console.error("API Error:", err);
+        return NextResponse.json(
+        { error: "Something went wrong while summarizing." },
+        { status: 500 }
+        );
+    }
 }
