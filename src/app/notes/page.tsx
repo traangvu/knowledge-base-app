@@ -1,4 +1,4 @@
-import { prisma } from "/Users/trang/Desktop/my-knowledge-base-app/src/lib/prisma"
+import { prisma } from '@/lib/prisma'
 import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 
