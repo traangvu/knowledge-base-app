@@ -1,6 +1,5 @@
 //src/app/layout.tsx
 
-// app/layout.tsx
 import './globals.css';
 import ApolloWrapper from '@/components/ApolloWrapper';
 import Providers from '@/components/Providers';
