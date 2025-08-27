@@ -1,94 +1,80 @@
-///src/components/ui/Card.tsx
+// src/components/ui/Card.tsx
+import React from 'react';
 
-import * as React from "react";
-
-import { cn } from "@/lib/utils";
-
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card"
-        className={cn(
-            "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-            className
-        )}
-        {...props}
-        />
-    );
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-header"
-        className={cn(
-            "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-            className
-        )}
-        {...props}
-        />
-    );
+export const Card: React.FC<CardProps> = ({ children, className = '' }) => {
+  return (
+    <div className={`bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+interface CardHeaderProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-title"
-        className={cn("leading-none font-semibold", className)}
-        {...props}
-        />
-    );
+export const CardHeader: React.FC<CardHeaderProps> = ({ children, className = '' }) => {
+  return (
+    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+interface CardTitleProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-description"
-        className={cn("text-muted-foreground text-sm", className)}
-        {...props}
-        />
-    );
+export const CardTitle: React.FC<CardTitleProps> = ({ children, className = '' }) => {
+  return (
+    <h3 className={`text-lg font-semibold text-gray-900 ${className}`}>
+      {children}
+    </h3>
+  );
+};
+
+interface CardContentProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-action"
-        className={cn(
-            "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-            className
-        )}
-        {...props}
-        />
-    );
+export const CardContent: React.FC<CardContentProps> = ({ children, className = '' }) => {
+  return (
+    <div className={`px-6 py-4 ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+interface CardDescriptionProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-content"
-        className={cn("px-6", className)}
-        {...props}
-        />
-    );
+export const CardDescription: React.FC<CardDescriptionProps> = ({ children, className = '' }) => {
+  return (
+    <p className={`text-sm text-gray-600 ${className}`}>
+      {children}
+    </p>
+  );
+};
+
+interface CardFooterProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-    return (
-        <div
-        data-slot="card-footer"
-        className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
-        {...props}
-        />
-    );
-}
-
-export {
-    Card,
-    CardHeader,
-    CardFooter,
-    CardTitle,
-    CardAction,
-    CardDescription,
-    CardContent,
+export const CardFooter: React.FC<CardFooterProps> = ({ children, className = '' }) => {
+  return (
+    <div className={`px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-lg ${className}`}>
+      {children}
+    </div>
+  );
 };
