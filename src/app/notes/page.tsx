@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { Card } from "../../components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 
 interface Note {

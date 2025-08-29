@@ -1,8 +1,8 @@
 // src/app/page.tsx
 
 import Link from "next/link";
-import { Button } from "../components/ui/Button";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 
 export default function Home() {
     return (
