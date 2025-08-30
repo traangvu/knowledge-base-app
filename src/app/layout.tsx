@@ -1,6 +1,5 @@
 //src/app/layout.tsx
 
-// app/layout.tsx
 import './globals.css';
 import ApolloWrapper from '@/components/ApolloWrapper';
 import Providers from '@/components/Providers';
@@ -12,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body>
         <Providers> {/* ✅ SessionProvider now wrapped here */}
           <ApolloWrapper>

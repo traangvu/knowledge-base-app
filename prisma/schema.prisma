@@ -80,3 +80,22 @@ model Folder {
   user   User   @relation(fields: [userId], references: [id])
   notes  Note[]
 }
+
+model Node {
+  id       Int    @id @default(autoincrement())
+  title    String
+  type     String
+  outgoing Link[] @relation("OutgoingLinks")
+  incoming Link[] @relation("IncomingLinks")
+}
+
+model Link {
+  id       Int   @id @default(autoincrement())
+  sourceId Int
+  targetId Int
+  type     String
+
+  source   Node @relation("OutgoingLinks", fields: [sourceId], references: [id])
+  target   Node @relation("IncomingLinks", fields: [targetId], references: [id])
+}
+
